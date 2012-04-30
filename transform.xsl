@@ -20,9 +20,7 @@
         <xsl:text>,</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:if test="string($outermostElementName)='msf02s' or string($outermostElementName)='msf02r' or string($outermostElementName)='msf02q' or string($outermostElementName)='msf02p' or string($outermostElementName)='msf02n' or string($outermostElementName)='msf02l' or string($outermostElementName)='msf02k'">
-	  <xsl:text>,last_mod_date,last_mod_time,last_mod_user</xsl:text>
-	</xsl:if>
+	<xsl:text>,last_mod_date,last_mod_time,last_mod_user</xsl:text>
 	<xsl:if test="string($outermostElementName)='msf02p'">
 	  <xsl:text>,district_related</xsl:text>
 	</xsl:if>
@@ -39,9 +37,7 @@
         <xsl:text>,</xsl:text>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:if test="string($outermostElementName)='msf02s' or string($outermostElementName)='msf02r' or string($outermostElementName)='msf02q' or string($outermostElementName)='msf02p' or string($outermostElementName)='msf02n' or string($outermostElementName)='msf02l' or string($outermostElementName)='msf02k'">
-	  <xsl:text>,(select to_char(current_date, 'YYYYMMDD') from dual),(select to_char(current_date, 'HHMISS') from dual),'UML2SEC'</xsl:text>
-	</xsl:if>
+	<xsl:text>,(select to_char(current_date, 'YYYYMMDD') from dual),(select to_char(current_date, 'HHMISS') from dual),'UML2SEC'</xsl:text>
 	<xsl:if test="string($outermostElementName)='msf02p'">
 	  <xsl:text>,'n'</xsl:text>
 	</xsl:if>
