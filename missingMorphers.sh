@@ -7,6 +7,6 @@ for file in $(find el_jsc/jsc/m8MWP/m8MWPGenerated/ -iname *dtotype.java); do
     grep -q ${trimName} $morphers;
     if [ $? -ne 0 ]
     then
-	echo "Missing expected Morpher $fullName";
+	echo "Missing expected Morpher ${trimName}DTOMorpher.java";
     fi
 done;
