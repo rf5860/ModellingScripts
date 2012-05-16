@@ -21,18 +21,6 @@ while read line; do
 	relativePath=${expectedFile%../*}../
 	parentSep=${expectedFile%../*}../
 	relativeFound=${parentSep}${foundPath:18}
-	       
-	echo "actualMatch: $actualMatch"
-	echo "foundPath: $foundPath"
-	echo "relativePath: $relativePath"
-	echo "parentSep: $parentSep"
-	echo "relativeFound: $relativeFound"
-	echo "file: $file"
-	echo "path: $path"
-	echo "expectedFile: $expectedFile"
-	echo "rawId: $rawId"
-	echo "id: $id"
-	echo "line: $line"
 
 	sedeasy "href=\"${expectedFile}#${rawId}" "href=\"${relativeFound}#${rawId}" "$file"
     fi
