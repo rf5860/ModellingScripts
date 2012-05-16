@@ -1,11 +1,11 @@
 #!/bin/sh
 tempTypesFile=types.txt
-autoFix=true
 function sedeasy {
   sed -i "s/$(echo $1 | sed -e 's/\([[\/.*]\|\]\)/\\&/g')/$(echo $2 | sed -e 's/[\/&]/\\&/g')/g" $3
 }
 
 grep -r " href=\"[\.\./]\+Module" el_model/UMLModel/Module-8MWP > $tempTypesFile
+sort $tempTypesFile | uniq > ${tempTypesFile}.bak && mv ${tempTypesFile}.bak $tempTypesFile
 
 while read line; do
     file=$(echo $line | cut -d':' -f1);
