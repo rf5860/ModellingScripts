@@ -1,0 +1,16 @@
+<ivysettings>
+  <settings defaultResolver="all"/>
+  <property name="ivy.build.default.root" value="http://devivyhome.mincom.oz.au/nexus/content" override="false"/>
+  <property name="ivy.build.default.public" value="${ivy.build.default.root}/groups/public" override="false"/>
+  <property name="ivy.build.default.releases" value="${ivy.build.default.root}/repositories/snapshots" override="false"/>
+  <property name="ivy.build.default.pattern" value="[organisation]/[module]/[revision]/[artifact]-[revision](-[classifier]).[ext]" override="false"/>
+  <resolvers>
+    <url name="mincom-ivy" m2compatible="true"> 
+      <ivy pattern="${ivy.build.default.releases}/${ivy.build.default.pattern}" />
+      <artifact pattern="${ivy.build.default.releases}/${ivy.build.default.pattern}" />
+    </url>
+    <chain name="all" returnFirst="true" dual="true">
+      <resolver ref="mincom-ivy" />
+    </chain>
+  </resolvers>
+</ivysettings>
