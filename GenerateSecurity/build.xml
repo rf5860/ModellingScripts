@@ -14,6 +14,7 @@
     <ivy:retrieve pattern="[artifact].[ext]"/>
   </target>
 
+  <!-- It looks like only SQL items get publised in the UMLToSecurity JAR at present. A work-around for this needs to be investigated. -->
   <target name="extract-resolved-security" description="Extract security XML from retrieved JAR">
     <!-- Extract security -->
   </target>
