@@ -4,6 +4,8 @@
   <property name="ALL_TABLES" location="ALL_TABLES.sql"/>
   <property name="resolved.security.dir" location="resolved"/>
   <property name="local.security.dir" location="local"/>
+  <property name="resolved.security.all.tables.file" location="${resolved.security.dir}/ALL_TABLES.sql"/>
+  <property name="local.security.all.tables.file" location="${local.security.dir}/ALL_TABLES.sql"/>
   <property name="last.security.version" value="WORKPLANNER_ELLIPSE_4.1.+"/>
   <!-- Target -->
   <target name="resolve" description="Resolve the latest security JAR.">
@@ -41,8 +43,11 @@
     <attribute name="new">
     </attribute>
     <sequential>
-      <exec executable="bash" newenvironment="false" dir=".">
-        <arg value="awk 'NR==FNR{a[$0];next}!($0 in a)' @{new} @{orig} > ${ALL_TABLES}"/>
+      <exec executable="bash" newenvironment="false" dir="." output="${ALL_TABLES}">
+        <arg value="awk"/>
+	<arg value="NR==FNR{a[$0];next}!($0 in a)"/>
+	<arg value="@{orig}"/>
+	<arg value="@{new}"/>
       </exec>
     </sequential>
   </macrodef>
@@ -50,6 +55,6 @@
   <target name="dist" depends="resolve,extract-resolved-security" description="Generates the Security SQL">
     <generate-security security-path="${resolved.security.dir}"/>
     <generate-security security-path="${local.security.dir}"/>
-    <get-unique-lines orig="${resolved.security.dir}" new="${local.security.dir}"/>
+    <get-unique-lines orig="${resolved.security.all.tables.file}" new="${local.security.all.tables.file}"/>
   </target>
 </project>
