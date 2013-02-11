@@ -1,3 +1,7 @@
 *.sql
 *.jar
 *~
+
+GenerateSecurity/local/
+GenerateSecurity/resolved/
+msxsl.exe
