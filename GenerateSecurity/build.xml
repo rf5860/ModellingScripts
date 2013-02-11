@@ -1,6 +1,7 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="GenerateSQL" default="dist" basedir=".">
   <description>Generate differential SQL for Security based on differences with last built security XML.</description>
   <!-- Build properties  -->
+  <property name="ALL_TABLES" location="ALL_TABLES.sql"/>
   <property name="resolved.security.dir" location="resolved"/>
   <property name="local.security.dir" location="local"/>
   <property name="last.security.version" value="WORKPLANNER_ELLIPSE_4.1.+"/>
@@ -25,17 +26,30 @@
   </target>
 
   <macrodef name="generate-security">
-      <attribute name="security-path"/>
-      <sequential>
-        <exec executable="bash" newenvironment="false" dir=".">
-            <arg value="run_transform.sh"/>
-            <arg value="@{security-path}"/>
-        </exec>
-      </sequential>
+    <attribute name="security-path"/>
+    <sequential>
+      <exec executable="bash" newenvironment="false" dir=".">
+        <arg value="run_transform.sh"/>
+        <arg value="@{security-path}"/>
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="get-unique-lines">
+    <attribute name="orig">
+    </attribute>
+    <attribute name="new">
+    </attribute>
+    <sequential>
+      <exec executable="bash" newenvironment="false" dir=".">
+        <arg value="awk 'NR==FNR{a[$0];next}!($0 in a)' @{new} @{orig} > ${ALL_TABLES}"/>
+      </exec>
+    </sequential>
   </macrodef>
   
   <target name="dist" depends="resolve,extract-resolved-security" description="Generates the Security SQL">
     <generate-security security-path="${resolved.security.dir}"/>
     <generate-security security-path="${local.security.dir}"/>
+    <get-unique-lines orig="${resolved.security.dir}" new="${local.security.dir}"/>
   </target>
 </project>
